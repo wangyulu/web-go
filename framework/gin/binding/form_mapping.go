@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gin-gonic/gin/internal/bytesconv"
-	"github.com/gin-gonic/gin/internal/json"
+	"github.com/wangyulu/web-go/framework/gin/internal/bytesconv"
+	"github.com/wangyulu/web-go/framework/gin/internal/json"
 )
 
 var (

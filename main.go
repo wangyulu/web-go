@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/wangyulu/web-go/framework"
+	"github.com/wangyulu/web-go/framework/gin"
 	"github.com/wangyulu/web-go/framework/middleware"
 	"log"
 	"net/http"
@@ -13,9 +13,9 @@ import (
 )
 
 func main() {
-	core := framework.NewCore()
+	core := gin.New()
 
-	core.Use(middleware.Recovery())
+	core.Use(gin.Recovery())
 	core.Use(middleware.Cost())
 
 	registerRouter(core)

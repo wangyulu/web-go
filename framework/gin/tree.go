@@ -11,7 +11,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/gin-gonic/gin/internal/bytesconv"
+	"github.com/wangyulu/web-go/framework/gin/internal/bytesconv"
 )
 
 var (
