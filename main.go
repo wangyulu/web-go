@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/wangyulu/web-go/framework/gin"
 	"github.com/wangyulu/web-go/framework/middleware"
+	"github.com/wangyulu/web-go/provider/demo"
 	"log"
 	"net/http"
 	"os"
@@ -14,6 +15,9 @@ import (
 
 func main() {
 	core := gin.New()
+
+	// 绑定具体的服务
+	core.Bind(&demo.DemoServiceProvider{})
 
 	core.Use(gin.Recovery())
 	core.Use(middleware.Cost())
