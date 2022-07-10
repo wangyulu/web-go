@@ -2,11 +2,15 @@ package main
 
 import (
 	"github.com/wangyulu/web-go/framework"
+	"github.com/wangyulu/web-go/framework/middleware"
 	"net/http"
 )
 
 func main() {
 	core := framework.NewCore()
+
+	core.Use(middleware.Recovery())
+	core.Use(middleware.Cost())
 
 	registerRouter(core)
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/wangyulu/web-go/framework"
+	"github.com/wangyulu/web-go/framework/middleware"
 )
 
 func registerRouter(core *framework.Core) {
@@ -17,8 +18,8 @@ func registerRouter(core *framework.Core) {
 		// 动态路由
 		subjectApi.Delete("/:id", SubjectDelController)
 		subjectApi.Put("/:id", SubjectUpdateController)
-		subjectApi.Get("/:id", SubjectGetController)
-		subjectApi.Get("/list/all", SubjectListController)
+		subjectApi.Get("/:id", middleware.Test1(), SubjectGetController)
+		subjectApi.Get("/list/all", middleware.Test2(), SubjectListController)
 
 		subjectInnerApi := subjectApi.Group("/info")
 		{
