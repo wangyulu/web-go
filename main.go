@@ -4,7 +4,10 @@ import (
 	"context"
 	"github.com/wangyulu/web-go/framework/gin"
 	"github.com/wangyulu/web-go/framework/middleware"
-	"github.com/wangyulu/web-go/provider/demo"
+	"github.com/wangyulu/web-go/framework/provider/app"
+
+	hadeHttp "github.com/wangyulu/web-go/app/http"
+
 	"log"
 	"net/http"
 	"os"
@@ -17,12 +20,13 @@ func main() {
 	core := gin.New()
 
 	// 绑定具体的服务
-	core.Bind(&demo.DemoServiceProvider{})
+	core.Bind(&app.HadeAppProvider{})
+	// core.Bind(&demo.DemoProvider{})
 
 	core.Use(gin.Recovery())
 	core.Use(middleware.Cost())
 
-	registerRouter(core)
+	hadeHttp.Routes(core)
 
 	server := http.Server{
 		// 自定义的请求核心处理函数
