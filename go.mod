@@ -27,3 +27,9 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 )
+
+require (
+	github.com/cpuguy83/go-md2man/v2 v2.0.2
+	github.com/inconshreveable/mousetrap v1.0.0
+	github.com/spf13/pflag v1.0.5
+)
