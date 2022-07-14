@@ -1,7 +1,6 @@
 package demo
 
 import (
-	"github.com/wangyulu/web-go/framework/contract"
 	"github.com/wangyulu/web-go/framework/gin"
 
 	demoService "github.com/wangyulu/web-go/app/provider/demo"
@@ -13,7 +12,6 @@ type DemoApi struct {
 
 func Register(r *gin.Engine) error {
 	api := NewDemoApi()
-	r.Bind(&demoService.DemoProvider{})
 
 	r.GET("/demo/demo", api.Demo)
 	r.GET("/demo/demo2", api.Demo2)
@@ -34,12 +32,12 @@ func NewDemoApi() *DemoApi {
 // @Success 200 array []UserDTO
 // @Router /demo/demo [get]
 func (api *DemoApi) Demo(c *gin.Context) {
-	appService := c.MustMake(contract.AppKey).(contract.App)
-	baseFolder := appService.BaseFolder()
-	// users := api.service.GetUsers()
-	// usersDTO := UserModelsToUserDTOs(users)
-	// c.JSON(200, usersDTO)
-	c.JSON(200, baseFolder)
+	// appService := c.MustMake(contract.AppKey).(contract.App)
+	// baseFolder := appService.BaseFolder()
+	users := api.service.GetUsers()
+	usersDTO := UserModelsToUserDTOs(users)
+	c.JSON(200, usersDTO)
+	// c.JSON(200, baseFolder)
 }
 
 // Demo godoc

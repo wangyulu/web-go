@@ -20,6 +20,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/wangyulu/web-go/framework"
 	"io"
 	"os"
 	"path/filepath"
@@ -37,6 +38,9 @@ type FParseErrWhitelist flag.ParseErrorsWhitelist
 // you to define the usage and description as part of your command
 // definition to ensure usability.
 type Command struct {
+	// 服务容器
+	container framework.Container
+
 	// Use is the one-line usage message.
 	// Recommended syntax is as follow:
 	//   [ ] identifies an optional argument. Arguments that are not enclosed in brackets are required.
@@ -410,7 +414,7 @@ func (c *Command) HelpFunc() func(*Command, []string) {
 	return func(c *Command, a []string) {
 		c.mergePersistentFlags()
 		// The help should be sent to stdout
-		// See https://github.com/spf13/cobra/issues/1002
+		// See https://github.com/wangyulu/web-go/framework/cobra/issues/1002
 		err := tmpl(c.OutOrStdout(), c.HelpTemplate(), c)
 		if err != nil {
 			c.PrintErrln(err)
@@ -1402,7 +1406,7 @@ func (c *Command) IsAvailableCommand() bool {
 // help topic command; additional help topic command is determined by the
 // fact that it is NOT runnable/hidden/deprecated, and has no sub commands that
 // are runnable/hidden/deprecated.
-// Concrete example: https://github.com/spf13/cobra/issues/393#issuecomment-282741924.
+// Concrete example: https://github.com/wangyulu/web-go/framework/cobra/issues/393#issuecomment-282741924.
 func (c *Command) IsAdditionalHelpTopicCommand() bool {
 	// if a command is runnable, deprecated, or hidden it is not a 'help' command
 	if c.Runnable() || len(c.Deprecated) != 0 || c.Hidden {
