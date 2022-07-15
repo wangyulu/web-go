@@ -30,6 +30,11 @@ require (
 
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.2
+	github.com/erikdubbelboer/gspt v0.0.0-20210805194459-ce36a5128377 // indirect
+	github.com/google/uuid v1.3.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0
+	github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0 // indirect
+	github.com/robfig/cron/v3 v3.0.1 // indirect
+	github.com/sevlyar/go-daemon v0.1.6 // indirect
 	github.com/spf13/pflag v1.0.5
 )

@@ -20,6 +20,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/robfig/cron/v3"
 	"github.com/wangyulu/web-go/framework"
 	"io"
 	"os"
@@ -40,6 +41,11 @@ type FParseErrWhitelist flag.ParseErrorsWhitelist
 type Command struct {
 	// 服务容器
 	container framework.Container
+
+	// Command支持cron，只在RootCommand中有这个值
+	Cron *cron.Cron
+	// 对应Cron命令的信息
+	CronSpecs []CronSpec
 
 	// Use is the one-line usage message.
 	// Recommended syntax is as follow:
