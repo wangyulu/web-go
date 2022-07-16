@@ -3,7 +3,8 @@ package framework
 import (
 	"errors"
 	"fmt"
-	"sync"
+	"github.com/sasha-s/go-deadlock"
+	"time"
 )
 
 // Container 是一个服务容器，提供绑定服务和获取服务的功能
@@ -38,15 +39,18 @@ type HadeContainer struct {
 	instances map[string]interface{}
 
 	// lock 用于锁住对容器的变更操作
-	lock sync.RWMutex
+	lock deadlock.RWMutex
 }
 
 // NewHadeContainer 创建一个服务容器
 func NewHadeContainer() *HadeContainer {
+	deadlock.Opts.DeadlockTimeout = time.Second * 2
+	// deadlock.Opts.Disable = true
+
 	return &HadeContainer{
 		providers: map[string]ServiceProvider{},
 		instances: map[string]interface{}{},
-		lock:      sync.RWMutex{},
+		lock:      deadlock.RWMutex{},
 	}
 }
 
@@ -65,10 +69,12 @@ func (hade *HadeContainer) PrintProviders() []string {
 // Bind 将服务容器和关键字做了绑定
 func (hade *HadeContainer) Bind(provider ServiceProvider) error {
 	hade.lock.Lock()
-	defer hade.lock.Unlock()
+
 	key := provider.Name()
 
 	hade.providers[key] = provider
+
+	hade.lock.Unlock()
 
 	// if provider is not defer
 	if provider.IsDefer() == false {
@@ -134,13 +140,14 @@ func (hade *HadeContainer) newInstance(sp ServiceProvider, params []interface{})
 
 // 真正的实例化一个服务
 func (hade *HadeContainer) make(key string, params []interface{}, forceNew bool) (interface{}, error) {
-	hade.lock.RLock()
-	defer hade.lock.RUnlock()
 	// 查询是否已经注册了这个服务提供者，如果没有注册，则返回错误
 	sp := hade.findServiceProvider(key)
 	if sp == nil {
 		return nil, errors.New("contract " + key + " have not register")
 	}
+
+	hade.lock.RLock()
+	defer hade.lock.RUnlock()
 
 	if forceNew {
 		return hade.newInstance(sp, params)

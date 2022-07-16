@@ -8,7 +8,7 @@ import (
 func AddKernelCommands(root *cobra.Command) {
 	root.AddCommand(DemoCommand)
 
-	// root.AddCommand(envCommand)
+	root.AddCommand(envCommand)
 	// root.AddCommand(deployCommand)
 	//
 	// cron
