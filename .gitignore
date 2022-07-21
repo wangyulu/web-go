@@ -1,4 +1,3 @@
 /.idea
-/storage/log/
-/storage/runtime/
+/storage
 web-go
