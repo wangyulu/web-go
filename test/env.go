@@ -1,5 +1,5 @@
 package test
 
 const (
-	BasePath = "/Users/Documents/workspace/hade/"
+	BasePath = "/Users/sky/Code/local/gomodule/geek/web-go/"
 )

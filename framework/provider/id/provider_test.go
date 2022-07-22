@@ -16,11 +16,11 @@ func TestConsoleLog_Normal(t *testing.T) {
 	Convey("test hade console log normal case", t, func() {
 		basePath := util.GetExecDirectory()
 		c := framework.NewHadeContainer()
-		c.Singleton(&app.HadeAppProvider{BasePath: basePath})
-		c.Singleton(&env.HadeEnvProvider{})
-		c.Singleton(&config.HadeConfigProvider{})
+		c.Bind(&app.HadeAppProvider{BaseFolder: basePath})
+		c.Bind(&env.HadeEnvProvider{})
+		c.Bind(&config.HadeConfigProvider{})
 
-		err := c.Singleton(&HadeIDProvider{})
+		err := c.Bind(&HadeIDProvider{})
 		So(err, ShouldBeNil)
 
 		idService := c.MustMake(contract.IDKey).(contract.IDService)
