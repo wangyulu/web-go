@@ -18,6 +18,11 @@ type HadeApp struct {
 	configMap map[string]string // 配置加载
 }
 
+// AppID 表示这个App的唯一ID
+func (app HadeApp) AppID() string {
+	return app.appId
+}
+
 // Version 实现版本
 func (h HadeApp) Version() string {
 	return "0.0.3"
@@ -110,9 +115,12 @@ func (app HadeApp) TestFolder() string {
 	return filepath.Join(app.BaseFolder(), "test")
 }
 
-// AppID 表示这个App的唯一ID
-func (app HadeApp) AppID() string {
-	return app.appId
+// AppFolder 代表app目录
+func (app *HadeApp) AppFolder() string {
+	if val, ok := app.configMap["app_folder"]; ok {
+		return val
+	}
+	return filepath.Join(app.BaseFolder(), "app")
 }
 
 // NewHadeApp 初始化HadeApp
