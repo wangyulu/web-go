@@ -29,11 +29,15 @@ require (
 )
 
 require (
+	github.com/AlecAivazis/survey/v2 v2.3.5 // indirect
+	github.com/alcortesm/tgz v0.0.0-20161220082320-9c5fe88206d7 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2
 	github.com/erikdubbelboer/gspt v0.0.0-20210805194459-ce36a5128377 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
+	github.com/go-git/go-git/v5 v5.4.2 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0
+	github.com/jianfengye/collection v1.4.1 // indirect
 	github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0 // indirect
 	github.com/kr/pretty v0.3.0 // indirect
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible // indirect
