@@ -32,14 +32,6 @@ func AddKernelCommands(root *cobra.Command) {
 	root.AddCommand(initMiddlewareCommand())
 	// new
 	root.AddCommand(initNewCommand())
-	// root.AddCommand(deployCommand)
-	//
-	//
-	// // swagger
-	// swagger.IndexCommand.AddCommand(swagger.InitServeCommand())
-	// swagger.IndexCommand.AddCommand(swagger.GenCommand)
-	// root.AddCommand(swagger.IndexCommand)
-	// //
-	// // new
-	// root.AddCommand(initNewCommand())
+	// swagger
+	root.AddCommand(initSwaggerCommand())
 }

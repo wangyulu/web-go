@@ -1,16 +1,20 @@
 package http
 
 import (
+	"github.com/wangyulu/web-go/framework"
 	"github.com/wangyulu/web-go/framework/gin"
 )
 
 // NewHttpEngine is command
-func NewHttpEngine() (*gin.Engine, error) {
+func NewHttpEngine(container framework.Container) (*gin.Engine, error) {
 	// 设置为Release，为的是默认在启动中不输出调试信息
 	gin.SetMode(gin.ReleaseMode)
 
 	// 默认启动一个Web引擎
 	r := gin.New()
+
+	r.SetContainer(container)
+
 	r.Use(gin.Recovery())
 
 	// 业务绑定路由操作
