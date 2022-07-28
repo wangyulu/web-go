@@ -1,9 +1,10 @@
 package config
 
 import (
+	"path/filepath"
+
 	"github.com/wangyulu/web-go/framework"
 	"github.com/wangyulu/web-go/framework/contract"
-	"path/filepath"
 )
 
 type HadeConfigProvider struct{}

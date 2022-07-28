@@ -2,12 +2,13 @@ package services
 
 import (
 	"context"
-	"github.com/wangyulu/web-go/framework"
-	"github.com/wangyulu/web-go/framework/contract"
-	"github.com/wangyulu/web-go/framework/provider/log/formatter"
 	"io"
 	pkgLog "log"
 	"time"
+
+	"github.com/wangyulu/web-go/framework"
+	"github.com/wangyulu/web-go/framework/contract"
+	"github.com/wangyulu/web-go/framework/provider/log/formatter"
 )
 
 // HadeLog 的通用实例
@@ -34,6 +35,10 @@ func (log *HadeLog) logf(level contract.LogLevel, ctx context.Context, msg strin
 
 	// 使用ctxFielder 获取context中的信息
 	fs := fields
+	if fs == nil {
+		fs = make(map[string]interface{})
+	}
+
 	if log.ctxFielder != nil {
 		t := log.ctxFielder(ctx)
 		if t != nil {
