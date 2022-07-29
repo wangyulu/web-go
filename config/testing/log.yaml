@@ -5,10 +5,11 @@
 #driver: single
 #level: trace
 #folder: /tmp/
-#file: coredemo.log
+file: web-go.log
 
 driver: rotate # 切割日志
 level: trace # 日志级别
+formatter: json
 #file: coredemo.log # 保存的日志文件
 rotate_count: 10  # 最多日志文件个数
 #rotate_size: 120000
