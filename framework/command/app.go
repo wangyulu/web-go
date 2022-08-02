@@ -12,7 +12,6 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/erikdubbelboer/gspt"
 	"github.com/pkg/errors"
 	"github.com/sevlyar/go-daemon"
 	"github.com/wangyulu/web-go/framework"
@@ -103,6 +102,7 @@ var appStartCommand = &cobra.Command{
 				}
 			}
 		}
+
 		// 创建一个Server服务
 		server := &http.Server{
 			Handler: core,
@@ -141,7 +141,7 @@ var appStartCommand = &cobra.Command{
 				WorkDir: currentFolder,
 				// 设置所有设置文件的mask，默认为750
 				Umask: 027,
-				// 子进程的参数，按照这个参数设置，子进程的命令为 ./hade app start --daemon=true
+				// 子进程的参数，按照这个参数设置，子进程的命令为 ./web-go app start --daemon=true
 				Args: []string{"", "app", "start", "--daemon=true"},
 			}
 			// 启动子进程，d不为空表示当前是父进程，d为空表示当前是子进程
@@ -158,7 +158,7 @@ var appStartCommand = &cobra.Command{
 			defer cntxt.Release()
 			// 子进程执行真正的app启动操作
 			fmt.Println("deamon started")
-			gspt.SetProcTitle("hade app")
+			// gspt.SetProcTitle("hade app")
 			if err := startAppServe(server, container); err != nil {
 				fmt.Println(err)
 			}
@@ -172,7 +172,7 @@ var appStartCommand = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		gspt.SetProcTitle("hade app")
+		// gspt.SetProcTitle("hade app")
 
 		fmt.Println("app serve url:", appAddress)
 		if err := startAppServe(server, container); err != nil {
@@ -192,6 +192,12 @@ var appRestartCommand = &cobra.Command{
 
 		// GetPid
 		serverPidFile := filepath.Join(appService.RuntimeFolder(), "app.pid")
+
+		if !util.Exists(serverPidFile) {
+			appDaemon = true
+			// 直接daemon方式启动apps
+			return appStartCommand.RunE(c, args)
+		}
 
 		content, err := ioutil.ReadFile(serverPidFile)
 		if err != nil {

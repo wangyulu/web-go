@@ -15,6 +15,7 @@ import (
 	"github.com/wangyulu/web-go/framework/provider/log"
 	"github.com/wangyulu/web-go/framework/provider/orm"
 	"github.com/wangyulu/web-go/framework/provider/redis"
+	"github.com/wangyulu/web-go/framework/provider/ssh"
 	"github.com/wangyulu/web-go/framework/provider/trace"
 )
 
@@ -36,6 +37,7 @@ func main() {
 	container.Bind(&orm.GormProvider{})
 	container.Bind(&redis.RedisProvider{})
 	container.Bind(&cache.HadeCacheProvider{})
+	container.Bind(&ssh.SSHProvider{})
 
 	// 将HTTP引擎初始化,并且作为服务提供者绑定到服务容器中
 	if engine, err := http.NewHttpEngine(container); err == nil {

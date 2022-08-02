@@ -124,6 +124,14 @@ func (app *HadeApp) AppFolder() string {
 	return filepath.Join(app.BaseFolder(), "app")
 }
 
+// DeployFolder 定义测试需要的信息
+func (app HadeApp) DeployFolder() string {
+	if val, ok := app.configMap["deploy_folder"]; ok {
+		return val
+	}
+	return filepath.Join(app.BaseFolder(), "deploy")
+}
+
 // NewHadeApp 初始化HadeApp
 func NewHadeApp(params ...interface{}) (interface{}, error) {
 	if len(params) != 2 {

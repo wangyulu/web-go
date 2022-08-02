@@ -27,6 +27,8 @@ container.Bind(&kernel.HadeKernelProvider{HttpEngine: engine})
 
 最终导致M与N的读写冲突
 
+##### 在服务部署章节，在进行远程部署时当前的执行目录是ssh到远程服务器的宿主目录，导致执行过程中产生的日志文件夹目录直接在当前宿主目录下
+
 ```go
 
 // 没有添加死锁检测时，没有任务输出

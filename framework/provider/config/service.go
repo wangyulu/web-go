@@ -3,13 +3,6 @@ package config
 import (
 	"bytes"
 	"fmt"
-	"github.com/fsnotify/fsnotify"
-	"github.com/mitchellh/mapstructure"
-	"github.com/pkg/errors"
-	"github.com/spf13/cast"
-	"github.com/wangyulu/web-go/framework"
-	"github.com/wangyulu/web-go/framework/contract"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
 	"os"
@@ -17,6 +10,14 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/fsnotify/fsnotify"
+	"github.com/mitchellh/mapstructure"
+	"github.com/pkg/errors"
+	"github.com/spf13/cast"
+	"github.com/wangyulu/web-go/framework"
+	"github.com/wangyulu/web-go/framework/contract"
+	"gopkg.in/yaml.v2"
 )
 
 // HadeConfig  表示hade框架的配置文件服务
@@ -87,11 +88,6 @@ func NewHadeConfig(params ...interface{}) (interface{}, error) {
 	envFolder := params[1].(string)
 	envMaps := params[2].(map[string]string)
 
-	// 检查文件夹是否存在
-	if _, err := os.Stat(envFolder); os.IsNotExist(err) {
-		return nil, errors.New("folder " + envFolder + " not exist: " + err.Error())
-	}
-
 	// 实例化
 	hadeConf := &HadeConfig{
 		c:        container,
@@ -101,6 +97,12 @@ func NewHadeConfig(params ...interface{}) (interface{}, error) {
 		confRaws: map[string][]byte{},
 		keyDelim: ".",
 		lock:     sync.RWMutex{},
+	}
+
+	// 检查文件夹是否存在
+	if _, err := os.Stat(envFolder); os.IsNotExist(err) {
+		return hadeConf, nil
+		// return nil, errors.New("folder " + envFolder + " not exist: " + err.Error())
 	}
 
 	// 读取每个文件

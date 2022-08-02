@@ -1,12 +1,13 @@
 package log
 
 import (
+	"io"
+	"strings"
+
 	"github.com/wangyulu/web-go/framework"
 	"github.com/wangyulu/web-go/framework/contract"
 	"github.com/wangyulu/web-go/framework/provider/log/formatter"
 	"github.com/wangyulu/web-go/framework/provider/log/services"
-	"io"
-	"strings"
 )
 
 // HadeLogServiceProvider 服务提供者

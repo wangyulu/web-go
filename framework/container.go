@@ -3,8 +3,10 @@ package framework
 import (
 	"errors"
 	"fmt"
-	"github.com/sasha-s/go-deadlock"
+	"sync"
 	"time"
+
+	"github.com/sasha-s/go-deadlock"
 )
 
 // Container 是一个服务容器，提供绑定服务和获取服务的功能
@@ -39,18 +41,18 @@ type HadeContainer struct {
 	instances map[string]interface{}
 
 	// lock 用于锁住对容器的变更操作
-	lock deadlock.RWMutex
+	lock sync.RWMutex
 }
 
 // NewHadeContainer 创建一个服务容器
 func NewHadeContainer() *HadeContainer {
 	deadlock.Opts.DeadlockTimeout = time.Second * 2
-	// deadlock.Opts.Disable = true
+	deadlock.Opts.Disable = true
 
 	return &HadeContainer{
 		providers: map[string]ServiceProvider{},
 		instances: map[string]interface{}{},
-		lock:      deadlock.RWMutex{},
+		lock:      sync.RWMutex{},
 	}
 }
 

@@ -2,17 +2,17 @@ package command
 
 import (
 	"fmt"
-	"github.com/erikdubbelboer/gspt"
-	"github.com/sevlyar/go-daemon"
-	"github.com/wangyulu/web-go/framework/cobra"
-	"github.com/wangyulu/web-go/framework/contract"
-	"github.com/wangyulu/web-go/framework/util"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strconv"
 	"syscall"
 	"time"
+
+	"github.com/sevlyar/go-daemon"
+	"github.com/wangyulu/web-go/framework/cobra"
+	"github.com/wangyulu/web-go/framework/contract"
+	"github.com/wangyulu/web-go/framework/util"
 )
 
 var cronDaemon = false
@@ -107,7 +107,7 @@ var cronStartCommand = &cobra.Command{
 			// 子进程执行Cron.Run
 			defer cntxt.Release()
 			fmt.Println("daemon started")
-			gspt.SetProcTitle("hade cron")
+			//gspt.SetProcTitle("hade cron")
 			c.Root().Cron.Run()
 			return nil
 		}
@@ -121,7 +121,7 @@ var cronStartCommand = &cobra.Command{
 			return err
 		}
 
-		gspt.SetProcTitle("hade cron")
+		//gspt.SetProcTitle("hade cron")
 		c.Root().Cron.Run()
 		return nil
 	},
